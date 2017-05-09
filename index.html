@@ -8,145 +8,34 @@
 <div>
     <table>
         <tr>
+            <th colspan="2" style="color: #080;">Funkcja 1</th>
+            <th colspan="2" style="color: #008;">Funkcja 2</th>
+        </tr>
+        <tr>
             <td>A =</td>
-            <td><input type="number" name="a" style="width: 50px;" value="2" id="a" step="0.1"></td>
-            <td></td>
+            <td><input type="number" name="a" style="width: 50px;" value="0.5" id="a_1" step="0.1"></td>
+            <td>A =</td>
+            <td><input type="number" name="a" style="width: 50px;" value="-2" id="a_2" step="0.1"></td>
         </tr>
         <tr>
             <td>B =</td>
-            <td><input type="number" name="b" style="width: 50px;" value="-1" id="b"></td>
-            <td></td>
+            <td><input type="number" name="b" style="width: 50px;" value="2" id="b_1" step="0.1"></td>
+            <td>B =</td>
+            <td><input type="number" name="b" style="width: 50px;" value="4" id="b_2" step="0.1"></td>
         </tr>
         <tr>
             <td>y =</td>
-            <td><strong id="form"></strong></td>
-            <td></td>
+            <td><strong id="form_1"></strong></td>
+            <td>y =</td>
+            <td><strong id="form_2"></strong></td>
         </tr>
         <tr>
             <td>Skala</td>
-            <td colspan="2">
-                <input type="range" style="width: 250px;" min="2" max="18" value="8" step="0.01" id="scale">
-            </td>
+            <td colspan="3"><input type="range" style="width: 250px;" min="2" max="18" value="8" step="0.01" id="scale"></td>
         </tr>
     </table>
 </div>
 <canvas id="canvas" style="border: 1px solid black" width="1000" height="600"></canvas>
-<script type="text/javascript">
-    var el_a = document.getElementById('a');
-    var el_b = document.getElementById('b');
-    var el_scale = document.getElementById('scale');
-    var form = document.getElementById('form');
-
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-
-    var width, height;
-    var a, b;
-    var x0, y0;
-
-    var grid_scale = 20;
-
-    setInterval(update, 25);
-
-    function updForm() {
-        form.innerHTML = a + 'x + ' + b;
-    }
-
-    function calc(x) {
-        return a * x + b;
-    }
-
-    function update() {
-        width = canvas.width;
-        height = canvas.height;
-        a = parseFloat(el_a.value);
-        b = parseFloat(el_b.value);
-        x0 = -b / a;
-        y0 = calc(0);
-        grid_scale = parseFloat(el_scale.value);
-        grid_scale = grid_scale * grid_scale;
-
-        updForm();
-        draw();
-    }
-
-    function draw() {
-        ctx.setTransform(1, 0, 0, 1, width / 2 + 0.5, height / 2 + 0.5);
-        ctx.clearRect(-width / 2, -height / 2, width, height);
-        drawGrid();
-        drawFunc();
-        drawPoints();
-    }
-
-    function drawGrid() {
-        ctx.lineWidth = 1;
-
-        if (grid_scale / 5 > 3) {
-            ctx.beginPath();
-            ctx.strokeStyle = '#DDD';
-
-            for (var x = 0; x < width; x += grid_scale / 5) {
-                ctx.moveTo(x, -height / 2);
-                ctx.lineTo(x, height / 2);
-                ctx.moveTo(-x, -height / 2);
-                ctx.lineTo(-x, height / 2);
-            }
-            for (var y = 0; y < height; y += grid_scale / 5) {
-                ctx.moveTo(-width / 2, y);
-                ctx.lineTo(width / 2, y);
-                ctx.moveTo(-width / 2, -y);
-                ctx.lineTo(width / 2, -y);
-            }
-            ctx.stroke();
-        }
-
-        ctx.beginPath();
-        ctx.strokeStyle = '#CCC';
-        for (var x = 0; x < width; x += grid_scale) {
-            ctx.moveTo(x, -height / 2);
-            ctx.lineTo(x, height / 2);
-            ctx.moveTo(-x, -height / 2);
-            ctx.lineTo(-x, height / 2);
-        }
-        for (var y = 0; y < height; y += grid_scale) {
-            ctx.moveTo(-width / 2, y);
-            ctx.lineTo(width / 2, y);
-            ctx.moveTo(-width / 2, -y);
-            ctx.lineTo(width / 2, -y);
-        }
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.strokeStyle = '#333';
-        ctx.moveTo(-width / 2, 0);
-        ctx.lineTo(width / 2, 0);
-        ctx.moveTo(0, -height / 2);
-        ctx.lineTo(0, height / 2);
-        ctx.stroke();
-    }
-
-    function drawFunc() {
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = '#080';
-        ctx.beginPath();
-        ctx.moveTo(-width / 2, -calc(-width / 2 / grid_scale) * grid_scale);
-        ctx.lineTo(width / 2, -calc(width / 2 / grid_scale) * grid_scale);
-        ctx.stroke();
-    }
-
-    function drawPoints() {
-        ctx.strokeStyle = '#008';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.arc(x0 * grid_scale, 0, 6, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(0, -y0 * grid_scale, 6, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.font = '18px sans-serif';
-        ctx.fillText('y0:(0,' + (Math.round(y0 * 100) / 100) + ')', 10, -y0 * grid_scale + 4);
-        ctx.fillText('x0:(' + (Math.round(x0 * 100) / 100) + ',0)', x0*grid_scale + 10, 4);
-    }
-</script>
+<script type="text/javascript" src="scripts.js"></script>
 </body>
 </html>
