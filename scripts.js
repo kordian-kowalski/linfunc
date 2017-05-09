@@ -19,7 +19,7 @@ var x0_1, y0_1;
 var a_2, b_2;
 var x0_2, y0_2;
 
-var grid_scale = 20;
+var grid_scale;
 
 setInterval(update, 25);
 
